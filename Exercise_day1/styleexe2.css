@@ -1,0 +1,43 @@
+table {
+  background-color: rgb(255, 165, 48);
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+}
+
+tr:hover {
+  background-color: antiquewhite;
+}
+
+img {
+  width: 150px;
+  height: 100px;
+  align-items: center;
+  cursor: pointer
+}
+
+img:hover {
+  width: auto;
+  height: 150px;
+  transition: 2s;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="radio"] {
+  accent-color: blue;
+}

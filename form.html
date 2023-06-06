@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 style="text-align: center">FORMS</h2>
+    <!-- Forms -->
+    <form action="" method="post">
+        <input type="text" placeholder="Masukan Nama" />
+        <input type="password" placeholder="Masukan Password" required />
+        <input type="submit" value="Login" />
+        <input type="reset" value="Reset" /><br>
+        <hr>
+        <input type="checkbox" name="" id="ck" />
+        <label for="ck">Checkbox</label>
+        <input type="radio" name="" id="radio" />
+        <label for="radio">Radio</label>
+        <input type="range" name="" id="range" />
+        <input type="color" name="" id="color" />
+        <input type="date" name="" id="date" />
+        <input type="time" name="" id="time" />
+        <input type="datetime-local" name="" id="datetime-local" /> <br>
+        <input type="number" name="" id="number" min="0" max="100" />
+        <input type="email" name="" id="email" />
+        <input type="submit" value="OK" />
+        <input type="textarea" name="" id="textarea" /><br>
+
+        <button type="button" onclick="doSomething()">Click </button>
+
+        <p> Apa Games Favoritmu? </p>
+        <select>
+            <option>CS GO</option>
+            <option>Dota 2</option>
+            <option>League of Legends</option>
+            <option selected>Valorant</option>
+            <option>FIFA 2022</option>
+        </select>
+
+        <p>
+            <label for="gender">Gender:</label>
+            <input type="radio" name="gender" id="male" value="male" />
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="female" />
+            <label for="female">Female</label>
+        </p>
+
+        <fieldset>
+            <legend>Favorite Games</legend>
+            <input type="checkbox" name="" id="game1" />
+            <label for="game1">League of Legends</label>
+            <input type="checkbox" name="" id="game2" />
+            <label for="game2">Dota 2</label>
+            <input type="checkbox" name="" id="game3" />
+            <label for="game3">CS GO</label>
+        </fieldset>
+    </form>
+
+
+</body>
+</html>

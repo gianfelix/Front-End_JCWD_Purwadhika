@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Exe</title>
+    <style>
+        #content {
+            width: 450px;
+            height: 450px;
+            border: 2px solid #040101;
+            grid-column-gap: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column
+        }
+
+        .header {
+            height: 40px;
+            padding-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            margin-bottom: 10px;
+
+        }
+
+        .navbar div {
+            width: 450px;
+            height: 30px;
+            padding-top: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-1 {
+            margin-right: 10px;
+        }
+
+        .nav-2 {
+            margin-right: 10px;
+        }
+
+        .sidebar {
+            padding-top: 100px;
+            display: inline-block;
+            height: 150px;
+            width: 142px;
+            margin-bottom: 10px;
+        }
+
+        .content-1 {
+            position: absolute;
+            top: 130px;
+            left: 160px;
+            height: 50px;
+            width: 300px;
+            padding-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        .content-2 {
+            display: inline-block;
+            position: absolute;
+            top: 240px;
+            left: 160px;
+            width: 140px;
+            height: 76px;
+            padding-top: 57px;
+            margin-right: 10px;
+        }
+
+        .content-3 {
+            display: inline-block;
+            position: absolute;
+            top: 240px;
+            left: 310px;
+            width: 150px;
+            height: 76px;
+            padding-top: 57px;
+            margin-right: 10px;
+        }
+
+        .footer {
+            padding-top: 25px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <!-- div.kotak${$}*9  => cara cepat-->
+        <div class="header" style="background-color: rgb(243, 255, 74)">Header</div>
+        <div class="navbar">
+            <div class="nav-1" style="background-color: rgb(125, 255, 74)">nav-1</div>
+            <div class="nav-2" style="background-color: rgb(125, 255, 74)">nav-2</div>
+            <div class="nav-3" style="background-color: rgb(125, 255, 74)">nav-3</div>
+        </div>
+        <div class="sidebar" style="background-color: rgb(255, 174, 74)">sidebar</div>
+        <div class="content">
+            <div class="content-1" style="background-color: rgb(74, 240, 255)">content-1</div>
+            <div class="content-2" style="background-color: rgb(255, 74, 216)">content-2</div>
+            <div class="content-3" style="background-color: rgb(255, 74, 216)">content-3</div>
+        </div>
+        <div class="footer" style="background-color: rgb(255, 74, 74)">footer</div>
+    </div>
+</body>
+
+</html>

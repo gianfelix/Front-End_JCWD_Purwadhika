@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position</title>
+    <style>
+        div.static {
+            position: static;
+            border: 3px solid #73AD21;
+        }
+
+        div.relative {
+            position: relative;
+            border: 3px solid #73AD21;
+            left: 30px
+        }
+
+        div.absolute {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 200px;
+            height: 100px;
+            border: 3px solid #73AD21;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Position: Static</h3>
+    <p>Here the example of Static</p>
+    <div class="static">this element div is static</div>
+
+    <h3>Position: Relative</h3>
+    <p>Here the example of Relative</p>
+    <div class="relative">this element div is relative</div>
+
+    <h3>Position: Absolute</h3>
+<p>Here the example of Absolute</p>
+<div class="relative">this element div is relative</div>
+<div class="absolute">this element div is absolute</div>
+
+</body>
+
+</html>

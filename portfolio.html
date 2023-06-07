@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felix's Portfolio</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+</head>
+
+<body>
+    <header id="home">
+        <div class="navbar">
+            <a id="nav_name">Welcome to Felix's Portfolio</a>
+            <a href="#home" class="nav">Home</a>
+            <a href="#about" class="nav">About Me</a>
+            <a href="#about" class="nav">Contact</a>
+            <a class="nav" id="nav_portfolio">Portfolio</a>
+        </div>
+    </header>
+
+    <div class="line"></div>
+    <div class="content-1">
+        <h2>Hi, I am</h2>
+        <h3>Gian Felix Ramadan</h3>
+        <p class="name_interest">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus aliquid architecto similique, magni harum enim
+            odit soluta velit dolor nobis dicta qui nulla illum laboriosam? Natus quod consequatur ullam nobis.</p>
+        <div class="content-about">
+            <a href="#about">About Me</a>
+        </div>
+        <div class="content-contact"><a href="#about">Contact</a></div>
+        <!-- Leaflet JavaScript Library -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+        <!-- HTML Block untuk menampilkan peta -->
+        <div id="map"></div>
+        <script>
+            /* Initial Map */
+            var map = L.map('map').setView([-7.6959022, 110.4045510
+            ], 12); //lat, long, zoom
+
+            /* Tile Basemap */
+            var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //attribution akan muncul di pojok kanan bawah
+                attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://www.unsorry.net" target="_blank">unsorry@2022</a>'
+            });
+            basemap.addTo(map); //Memanggil basemap untuk ditampilkan ketika halaman dipanggil
+
+            /* Marker */
+            var marker = L.marker([-7.6959022, 110.4045510
+            ]); //lat, long
+            marker.addTo(map); //Marker ditampilkan ketika halaman dipanggil
+        </script>
+        <div class="caption-map">My Location
+            <div class="image">
+                <img src="assets/profile.png" alt="">
+
+            </div>
+            <div id="about">about</div>
+        </div>
+    </div>
+    <div class="content-2">
+        <div id="about_me">About Me</div>
+        <table class="table_about">
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <td>
+                    : Gian Felix Ramadan
+                </td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>
+                    : 23
+                </td>
+            </tr>
+            <tr>
+                <th>Domicile</th>
+                <td>
+                    : Ngaglik, Sleman, D. I. Yogyakarta
+                </td>
+            </tr>
+            <tr>
+                <th>Month and Year of Birth</th>
+                <td>
+                    : December, 1999
+                </td>
+            </tr>
+            <tr>
+                <th>Hobby</th>
+                <td>
+                    : Traveling
+                </td>
+            </tr>
+        </table>
+        <div id="contact">Contact</div>
+        <table class="table_contact">
+            <tr>
+                <th>
+                    Phone
+                </th>
+                <td>
+                    : +62 818 0483 18xx
+                </td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td> <a href="mailto:gfelixramadan@gmail.com" target="_blank">
+                        : gfelixramadan@gmail.com
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>LinkedIn</th>
+                <td> <a href="https://www.linkedin.com/in/gianfelixramadan/" target="_blank">
+                        : linkedin.com/in/gianfelixramadan/
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Git Hub</th>
+                <td> <a href="https://github.com/gianfelix" target="_blank">
+
+                        : github.com/gianfelix
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Instagram</th>
+                <td> <a href="https://www.instagram.com/gianfelixr/" target="_blank">
+
+                        : @gianfelixr
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="content-3">
+        <div id="exp">
+            My Experience
+        </div>
+        <div class="exp_main">
+            <div class="exp_1">
+                <p>
+                    Junior Web Development
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

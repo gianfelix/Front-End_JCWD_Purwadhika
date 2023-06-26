@@ -10,10 +10,13 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/footer/Footer";
 import { Verify } from "./pages/Verify";
 import { ResetPassword } from "./pages/ResetPassword";
+import { AuthKeepLogin } from "./components/AuthKeepLogin";
 
 function App() {
   return (
     <div className="App">
+      <AuthKeepLogin>
+
       <Navbar />
       <Routes>
         <Route path="/" element={<Landing />}></Route>
@@ -26,6 +29,7 @@ function App() {
       <Route path="/reset-password/:token" element={<ResetPassword/>}></Route>
       </Routes>
       <Footer/>
+      </AuthKeepLogin>
     </div>
   );
 }

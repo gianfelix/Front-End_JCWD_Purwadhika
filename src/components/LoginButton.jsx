@@ -1,17 +1,9 @@
-import {
-  Button,
-  useDisclosure,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { Button, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/reducer/AuthReducer";
 import { Avatar } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export const LoginButton = () => {
   const navigate = useNavigate();
@@ -20,11 +12,11 @@ export const LoginButton = () => {
   };
   const toProfilePage = () => {
     navigate("/profile");
-  }
+  };
 
   const toWritePage = () => {
     navigate("/write");
-  }
+  };
   const login = useSelector((state) => state.AuthReducer.login);
   const dispatch = useDispatch();
   return (
@@ -35,7 +27,7 @@ export const LoginButton = () => {
         </Button>
       ) : (
         <Menu>
-          <MenuButton as={Avatar} src="https://bit.ly/dan-abramov"></MenuButton>
+          <MenuButton as={Avatar}></MenuButton>
           <MenuList>
             <MenuItem onClick={toProfilePage}>Your Profile</MenuItem>
             <MenuItem onClick={toWritePage}>Write</MenuItem>

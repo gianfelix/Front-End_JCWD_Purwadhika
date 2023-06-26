@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -18,7 +18,7 @@ import { BsBookmarksFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { addToBookmark } from "../../redux/reducer/ArticlesReducer";
 import axios from "axios";
-import {WiTime4} from "react-icons/wi";
+import { WiTime4 } from "react-icons/wi";
 
 export const ArticleList = () => {
   const toast = useToast();
@@ -44,17 +44,63 @@ export const ArticleList = () => {
   const dispatch = useDispatch();
 
   const [articles, setArticles] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    getArticles();
+  }, [currentPage]);
   async function getArticles() {
     try {
       const responArticles = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=ASC&page=8"
+        `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=ASC&page=${currentPage}`
       );
       setArticles(responArticles.data.result);
+      setTotalPages(responArticles.data.totalPages);
     } catch (err) {
       console.log(err);
     }
   }
-  getArticles();
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const renderPageButtons = () => {
+    const pageButtons = [];
+    const pageRange = 3; // Rentang halaman yang ingin ditampilkan di antara tombol "Previous" dan "Next"
+    let startPage = currentPage - pageRange;
+    let endPage = currentPage + pageRange;
+    const totalPagesInRange = pageRange * 2 + 1;
+
+    if (startPage < 1) {
+      endPage = Math.min(totalPagesInRange, totalPages);
+      startPage = 1;
+    }
+
+    if (endPage > totalPages) {
+      startPage = Math.max(totalPages - totalPagesInRange + 1, 1);
+      endPage = totalPages;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageButtons.push(
+        <Button
+          key={i}
+          size="sm"
+          color={"white"}
+          variant={i === currentPage ? "solid" : "outline"}
+          colorScheme="teal"
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </Button>
+      );
+    }
+
+    return pageButtons;
+  };
+
   return (
     <>
       <Box ml={"35px"} mb={"50px"}>
@@ -94,23 +140,26 @@ export const ArticleList = () => {
                   </Stack>
                 </CardBody>
                 <Divider />
-                <Box mt={"3px"} mr={"3px"}>
-                  <WiTime4 size={"20px"} />
-                </Box>
-                <Text>
-                  {" "}
-                  {item.updatedAt.slice(0, 10)}, {item.updatedAt.slice(11, 16)}{" "}
-                  WIB
+                <Text
+                  align={"left"}
+                  mt={"7px"}
+                  ml={"15px"}
+                  color={"teal"}
+                  fontWeight={"bold"}
+                >
+                  Category: {item.Category.name}
                 </Text>
-                <CardFooter>
-                  <Text
-                    mt={"7px"}
-                    mr={"15px"}
-                    color={"teal"}
-                    fontWeight={"bold"}
-                  >
-                    Category: {item.Category.name}
+                <Flex ml={"15px"} align={"left"}>
+                  <Box mt={"3px"} mr={"3px"}>
+                    <WiTime4 size={"20px"} />
+                  </Box>
+                  <Text>
+                    {item.updatedAt.slice(0, 10)},{" "}
+                    {item.updatedAt.slice(11, 16)}
+                    WIB
                   </Text>
+                </Flex>
+                <CardFooter>
                   <ButtonGroup>
                     <Button>Like</Button>
                     {!login ? (
@@ -133,6 +182,31 @@ export const ArticleList = () => {
               </Card>
             );
           })}
+        </Flex>
+        {/* --Pagination-- */}
+        <Flex justify="center" mt={4}>
+          <Button
+            mr={"15px"}
+            size="sm"
+            variant="solid"
+            colorScheme="teal"
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            Previous
+          </Button>
+          <Box>{renderPageButtons()}</Box>
+
+          <Button
+            ml={"15px"}
+            size="sm"
+            variant="solid"
+            colorScheme="teal"
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Next
+          </Button>
         </Flex>
       </Box>
     </>

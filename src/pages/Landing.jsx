@@ -7,7 +7,6 @@ import { Sidebar } from "../components/Sidebar";
 import { HeroBanner } from "../components/HeroBanner";
 import { Content } from "../components/content/content";
 import { CarouselArticles } from "../components/carousel/CarouselArticles";
-import ArticlesPagination from "../components/content/ArticlesPagination";
 
 export const Landing = () => {
   return (
@@ -51,7 +50,6 @@ export const Landing = () => {
               </Grid>
 
               <Content />
-              {/* <ArticlesPagination/> */}
             </Grid>
             <Sidebar />
           </Grid>

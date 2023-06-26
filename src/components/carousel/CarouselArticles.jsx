@@ -12,20 +12,21 @@ import {
   Image,
   Stack,
   Text,
-  useBreakpointValue,
+  Flex,
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 import axios from "axios";
+import { WiTime4 } from "react-icons/wi";
 
 export const CarouselArticles = () => {
   const [latest, setLatest] = useState([]);
   async function latestArticles() {
     try {
       const res = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=&sort=asc"
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=DESC"
       );
       setLatest(res.data.result);
     } catch (error) {
@@ -42,8 +43,8 @@ export const CarouselArticles = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 3000,
-    autoplaySpeed: 2000,
+    speed: 5000,
+    autoplaySpeed: 4000,
     cssEase: "linear",
   };
   return (
@@ -101,27 +102,37 @@ export const CarouselArticles = () => {
         <Slider {...settings} ref={setSlider}>
           {latest.map((item) => {
             return (
-              <Card  minW={'400px'} maxW={"400px"} minH={'450px'} maxH={"450px"}>
+              <Card minW={"450px"} maxW={"450px"} minH={"450px"} maxH={"450px"} bg={"#d7fcee"} borderRadius={"20px"}>
                 <CardBody align={"center"}>
                   <Center>
                     <Image
                       src={`https://minpro-blog.purwadhikabootcamp.com/${item.imageURL}`}
                       borderRadius={"20px"}
-                      w={"300px"}
-                      h={"150px"}
+                      w={"400px"}
+                      h={"170px"}
                       alignItems={"center"}
                     />
                   </Center>
-                  <Stack mt="10px" spacing="2">
+                  <Stack mt="10px" spacing="1">
                     <Heading size="18px">{item.title}</Heading>
-                    <Text align='justify' fontSize={"16px"}>{item.content}</Text>
+                    <Text align="justify" fontSize={"14px"} noOfLines={2}>
+                      {item.content}
+                    </Text>
+                    <Text mt={'5px'} align={'left'} color={"teal"} fontWeight={"bold"}>
+                    Category:  {item.Category.name}
+                    </Text>
                   </Stack>
+                  <Flex mt={"5px"}>
+                    <Box mt={"3px"} mr={"3px"}> 
+                      <WiTime4 size={'20px'} />
+                    </Box>
+                    <Text> {item.updatedAt.slice(0, 10)}, {item.updatedAt.slice(11, 16)} WIB</Text>
+                  </Flex>
                 </CardBody>
                 <Divider />
                 <CardFooter>
                   <ButtonGroup>
-                    <Button>Like</Button>
-                    
+                    <Button colorScheme="teal">Like</Button>
                   </ButtonGroup>
                 </CardFooter>
               </Card>

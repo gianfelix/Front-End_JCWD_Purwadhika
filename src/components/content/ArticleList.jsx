@@ -18,6 +18,7 @@ import { BsBookmarksFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { addToBookmark } from "../../redux/reducer/ArticlesReducer";
 import axios from "axios";
+import {WiTime4} from "react-icons/wi";
 
 export const ArticleList = () => {
   const toast = useToast();
@@ -46,7 +47,7 @@ export const ArticleList = () => {
   async function getArticles() {
     try {
       const responArticles = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=ASC&page=1"
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=ASC&page=8"
       );
       setArticles(responArticles.data.result);
     } catch (err) {
@@ -90,14 +91,26 @@ export const ArticleList = () => {
                   <Stack maxW="350px" maxH={"auto"}>
                     <Text fontWeight={"bold"}>{item.title}</Text>
                     <Text noOfLines={3}>{item.content}</Text>
-                    
                   </Stack>
                 </CardBody>
                 <Divider />
+                <Box mt={"3px"} mr={"3px"}>
+                  <WiTime4 size={"20px"} />
+                </Box>
+                <Text>
+                  {" "}
+                  {item.updatedAt.slice(0, 10)}, {item.updatedAt.slice(11, 16)}{" "}
+                  WIB
+                </Text>
                 <CardFooter>
-                <Text mt={"7px"} mr={"15px"} color={"teal"} fontWeight={"bold"}>
-                     Category: {item.Category.name}
-                    </Text>
+                  <Text
+                    mt={"7px"}
+                    mr={"15px"}
+                    color={"teal"}
+                    fontWeight={"bold"}
+                  >
+                    Category: {item.Category.name}
+                  </Text>
                   <ButtonGroup>
                     <Button>Like</Button>
                     {!login ? (

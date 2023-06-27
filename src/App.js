@@ -19,6 +19,7 @@ function App() {
     <div className="App">
       <AuthKeepLogin>
         <Helmet>
+        <link rel="icon" type="image/svg+xml" href="/earth.svg" />
           <title>Earth Wall</title>
         </Helmet>
         <Navbar />

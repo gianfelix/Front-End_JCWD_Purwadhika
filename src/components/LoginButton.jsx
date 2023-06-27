@@ -4,7 +4,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Flex,
+  Text,
   Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ import { Avatar } from "@chakra-ui/react";
 import { FiSettings } from "react-icons/fi";
 import { IoCreateOutline } from "react-icons/io5";
 import { LuLogOut } from "react-icons/lu";
+import { NameNavbar } from "./profiling/NameNavbar";
 export const LoginButton = () => {
   const navigate = useNavigate();
   const toLoginPage = () => {
@@ -38,6 +39,9 @@ export const LoginButton = () => {
       ) : (
         <Menu>
           <MenuButton as={Avatar}></MenuButton>
+          <Text >
+            <NameNavbar />
+          </Text>
           <MenuList>
             <MenuItem onClick={toProfilePage}>
               <Box mr={"7px"}>
@@ -47,15 +51,16 @@ export const LoginButton = () => {
             </MenuItem>
             <MenuItem onClick={toWritePage}>
               <Box mr={"7px"}>
-                <IoCreateOutline/>
+                <IoCreateOutline />
               </Box>
-              Write</MenuItem>
+              Write
+            </MenuItem>
 
             <MenuItem onClick={() => dispatch(logoutSuccess())}>
-             <Box mr={"7px"}>
-<LuLogOut/>
-             </Box>
-             Logout
+              <Box mr={"7px"}>
+                <LuLogOut />
+              </Box>
+              Logout
             </MenuItem>
           </MenuList>
         </Menu>

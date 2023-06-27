@@ -32,7 +32,7 @@ export const Navbar = () => {
             </Text>
           </Flex>
         </Link>
-        <Box ml={"1200px"}> </Box>
+        <Box ml={"1100px"}> </Box>
         <Flex gap={"20px"}>
           <Link to={"/"}>
             <Button colorScheme="teal" variant={"solid"}>

@@ -211,7 +211,9 @@ export const Login = () => {
                     type="text"
                     rounded={"lg"}
                     onChange={formik.handleChange}
-                    
+                    placeholder="Insert Your Username/ email/ phone number"
+                    variant="filled"
+
                     value={formik.values.identifier}
                   />
                   {formik.touched.identifier && formik.errors.identifier && (
@@ -226,6 +228,7 @@ export const Login = () => {
                 >
                   <FormLabel htmlFor="password">Password :</FormLabel>
                   <Input
+                  
                     id="password"
                     name="password"
                     type="password"

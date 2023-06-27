@@ -13,7 +13,7 @@ export const BookmarkItem = ({ bookmark }) => {
   return bookmark?.map((item) => {
     return (
       <>
-        <Box>
+        <Box key={item.id}> 
           <Card>
             <Image
               maxW={"120px"}

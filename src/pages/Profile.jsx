@@ -2,7 +2,7 @@ import { Box, Stack, Tabs, Text, TabList, TabPanel, TabPanels, Tab } from "@chak
 import { userName } from "../redux/reducer/AuthReducer";
 import { BookmarkContent } from "../components/profiling/BookmarkContent";
 import { ChangePassword } from "../components/password/ChangePassword";
-
+import { ProfileUser } from "../components/profiling/ProfileUser";
 
 export const Profile = () => {
   return (
@@ -12,7 +12,8 @@ export const Profile = () => {
         <Stack>
           
           <Box>
-            <Text ml={"50px"} fontSize={"2xl"}>Profile Settings</Text>
+            
+            <Text ml={"50px"} fontSize={"2xl"}> Profile Settings</Text>
           </Box>
           <Tabs variant={"soft-rounded"} colorScheme="teal">
             <TabList>
@@ -21,7 +22,7 @@ export const Profile = () => {
               <Tab>My Bookmark</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel>username, dkk</TabPanel>
+              <TabPanel> <ProfileUser/> </TabPanel>
               <TabPanel> <ChangePassword /> </TabPanel>
               <TabPanel>
                 <BookmarkContent />

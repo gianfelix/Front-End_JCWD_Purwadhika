@@ -1,28 +1,59 @@
-import { Avatar, Box, Text } from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Flex, Grid, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 export const ProfileUser = () => {
-  const getAvatar = async () => {
-    try {
-      const res = await axios.get(
-        "https://minpro-blog.purwadhikabootcamp.com/Public/Avatar-6.png"
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const response = await fetch(
+          "https://minpro-blog.purwadhikabootcamp.com/api/auth",
+          {
+            headers,
+          }
+        );
+
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
-      <Box>
-        <Avatar
-          src={`https://minpro-blog.purwadhikabootcamp.com/Public/Avatar-6.png`}
-          size={"xl"}
-        />
-        <Text fontSize={"20px"} fontWeight={"medium"}>
-          Nama Pengguna
-        </Text>
+      <Box mt={"10px"} minH={"621px"}>
+        <Flex>
+          <Box fontWeight={"bold"} fontSize={"18px"}>
+            <Text mb={"10px"}>Username</Text>
+            <Text mb={"10px"}> Email</Text>
+            <Text mb={"10px"}>Phone</Text>
+          </Box>
+          <Box ml={"5px"} mr={"10px"} fontWeight={"bold"} fontSize={"18px"}>
+            <Text mb={'10px'}>:</Text>
+            <Text mb={'10px'}>:</Text>
+            <Text mb={'10px'}>:</Text>
+          </Box>
+          <Box align="left" fontSize={"18px"}>
+            <Text mb={'10px'}>{userData?.username}</Text>
+            <Text mb={'10px'}>{userData?.email}</Text>
+            <Text mb={'10px'}>{userData?.phone}</Text>
+          </Box>
+        </Flex>
       </Box>
     </>
   );
-}
+};

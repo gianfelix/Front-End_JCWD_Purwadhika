@@ -8,7 +8,7 @@ export const BookmarkContent = () => {
   );
   return (
     <>
-      <Box>
+      <Box minH={'631px'}>
         <BookmarkItem bookmark={bookmarkArticles} />
       </Box>
     </>

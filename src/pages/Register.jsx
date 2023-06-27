@@ -35,6 +35,7 @@ const RegisterSchema = Yup.object().shape({
     .max(15, "Password must be less than 16 character")
     .matches(/[A-Z]/, "Password requires an uppercase letter")
     .matches(/[0-9]/, "Password requires a number")
+    .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, "Password requires a special character")
     .required("Password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Password not match")

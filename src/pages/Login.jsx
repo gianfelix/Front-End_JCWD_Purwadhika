@@ -35,26 +35,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { ModalForgotPass } from "../components/password/ModalForgotPass";
 
 const LoginSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, "Username must be 3 characters minimum")
-    .required("Username is required"),
-  email: Yup.string()
-    .email("Invalid email address format")
-    .required("Email is required"),
-  phone: Yup.string()
-    .matches(/^[0-9]+$/, "Phone number must be number")
-    .required("Phone number is required"),
+  // username: Yup.string()
+  //   .min(3, "Username must be 3 characters minimum")
+  //   .required("Username is required"),
+  // email: Yup.string()
+  //   .email("Invalid email address format")
+  //   .required("Email is required"),
+  // phone: Yup.string()
+  //   .matches(/^[0-9]+$/, "Phone number must be number")
+  //   .required("Phone number is required"),
+  identifier: Yup.string()
+  .required("Username/ Email/ Phone number is required"),
   password: Yup.string()
     .min(7, "Password must be 7 characters minimum")
     .max(35, "Password must be less than 16 character")
     .matches(/[A-Z]/, "Password requires an uppercase letter")
+    .matches(
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+      "Password requires a special character"
+    )
     .required("Password is required"),
 });
 export const Login = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onForgot = () => {
     onOpen();
-  }
+  };
   const navigate = useNavigate();
   function toHome() {
     navigate("/");
@@ -63,23 +69,28 @@ export const Login = () => {
   const dispatch = useDispatch();
   const login = async (values) => {
     try {
-      const { username, email, phone, password } = values;
+      // const { username, email, phone, password } = values;
       console.log(values);
       const login = await axios.post(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
         {
-          username: username,
-          email: email,
-          phone: phone,
-          password: password,
+          // username: username,
+          // email: email,
+          // phone: phone,
+          // password: password,
+          username: values.identifier,
+          email: values.identifier,
+          phone: values.identifier,
+          password: values.password,
         }
       );
       console.log(login);
       if (login.status === 200) {
         dispatch(loginSuccess(login.data.token));
-        dispatch(userName(login.data.isAccountExist.username));
-        dispatch(userEmail(login.data.isAccountExist.email));
-        dispatch(userPhone(login.data.isAccountExist.phone));
+        // dispatch(userName(login.data.isAccountExist.username));
+        // dispatch(userEmail(login.data.isAccountExist.email));
+        // dispatch(userPhone(login.data.isAccountExist.phone));
+        console.log(login.data.isAccountExist);
         toast({
           description: "Login Success",
           status: "success",
@@ -101,9 +112,10 @@ export const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
-      phone: "",
+      // username: "",
+      // email: "",
+      // phone: "",
+      identifier: "",
       password: "",
     },
     validationSchema: LoginSchema,
@@ -114,7 +126,7 @@ export const Login = () => {
   });
   return (
     <>
-      <Box pt={"154px"} align={"center"} h={"auto"} bg={"teal"} pb={"82px"}>
+      <Box pt={"231px"} align={"center"} h={"auto"} bg={"teal"} pb={"240px"}>
         <Box
           w={"600px"}
           bg={"white"}
@@ -126,7 +138,7 @@ export const Login = () => {
             <form onSubmit={formik.handleSubmit}>
               <VStack>
                 <Text fontSize={"30px"}>Login</Text>
-                <FormControl
+                {/* <FormControl
                   sx={{
                     marginBottom: "25px",
                   }}
@@ -173,7 +185,7 @@ export const Login = () => {
                   sx={{
                     marginBottom: "25px",
                   }}
-                  isInvalid={formik.touched.password && formik.errors.password}
+                  isInvalid={formik.touched.phone && formik.errors.phone}
                 >
                   <FormLabel htmlFor="phone">Phone :</FormLabel>
                   <Input
@@ -187,6 +199,23 @@ export const Login = () => {
                   />
                   {formik.touched.phone && formik.errors.phone && (
                     <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
+                  )}
+                </FormControl> */}
+                <FormControl
+                  isInvalid={formik.touched.identifier && formik.errors.identifier}
+                >
+                  <FormLabel htmlFor="identifier">Username, email, or phone number</FormLabel>
+                  <Input
+                    id="identifier"
+                    name="identifier"
+                    type="text"
+                    rounded={"lg"}
+                    onChange={formik.handleChange}
+                    
+                    value={formik.values.identifier}
+                  />
+                  {formik.touched.identifier && formik.errors.identifier && (
+                    <FormErrorMessage>{formik.errors.identifier}</FormErrorMessage>
                   )}
                 </FormControl>
                 <FormControl
@@ -218,8 +247,14 @@ export const Login = () => {
                   >
                     Login
                   </Button>
-                  <Button ml={"10px"} onClick={onForgot} variant={'ghost'}>Forgot Password ?</Button>
-                  <ModalForgotPass  isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+                  <Button ml={"10px"} onClick={onForgot} variant={"ghost"}>
+                    Forgot Password ?
+                  </Button>
+                  <ModalForgotPass
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    onOpen={onOpen}
+                  />
                 </Flex>
                 <Text mt={"10px"} mb={"20px"}>
                   Don't have an account?
@@ -230,7 +265,6 @@ export const Login = () => {
               </VStack>
             </form>
           </Stack>
-          
         </Box>
       </Box>
     </>

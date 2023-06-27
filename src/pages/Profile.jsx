@@ -1,6 +1,7 @@
 import { Box, Stack, Tabs, Text, TabList, TabPanel, TabPanels, Tab } from "@chakra-ui/react";
 import { userName } from "../redux/reducer/AuthReducer";
 import { BookmarkContent } from "../components/profiling/BookmarkContent";
+import { ChangePassword } from "../components/password/ChangePassword";
 
 
 export const Profile = () => {
@@ -11,7 +12,7 @@ export const Profile = () => {
         <Stack>
           
           <Box>
-            <Text ml={"50px"} fontSize={"2xl"}>Your Profile</Text>
+            <Text ml={"50px"} fontSize={"2xl"}>Profile Settings</Text>
           </Box>
           <Tabs variant={"soft-rounded"} colorScheme="teal">
             <TabList>
@@ -21,7 +22,7 @@ export const Profile = () => {
             </TabList>
             <TabPanels>
               <TabPanel>username, dkk</TabPanel>
-              <TabPanel>Change password and reset</TabPanel>
+              <TabPanel> <ChangePassword /> </TabPanel>
               <TabPanel>
                 <BookmarkContent />
               </TabPanel>

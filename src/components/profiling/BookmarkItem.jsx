@@ -20,8 +20,9 @@ export const BookmarkItem = ({ bookmark }) => {
               minW={"120px"}
               maxH={"100px"}
               minH={"100px"}
-              src={`https://minpro-blog.purwadhikabootcamp.com/${item.imageURL}`
-            }
+              src={`https://minpro-blog.purwadhikabootcamp.com/${item.imageURL}`}
+              borderRadius={"20px"}
+              alt="Image Bookmark"
             />
             <Stack>
               <CardBody>

@@ -10,9 +10,9 @@ import {
   Center,
   Image,
   Divider,
-  CardFooter,
   ButtonGroup,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import { BsBookmarksFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,14 +46,15 @@ export const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getArticles();
-  }, [currentPage]);
+  }, [currentPage, selectedCategory]);
   async function getArticles() {
     try {
       const responArticles = await axios.get(
-        `https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=ASC&page=${currentPage}`
+        `https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=${selectedCategory}&sort=ASC&page=${currentPage}`
       );
       setArticles(responArticles.data.result);
       setTotalPages(responArticles.data.totalPages);
@@ -101,6 +102,11 @@ export const ArticleList = () => {
     return pageButtons;
   };
 
+  const handleCategoryFilter = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+ 
   return (
     <>
       <Box ml={"35px"} mb={"50px"}>
@@ -114,14 +120,36 @@ export const ArticleList = () => {
           All Articles
         </Text>
 
+        <Flex align="center" mb="4">
+          <Text fontSize="20px" color={"#FFFFFF"} mr="2">
+            Filter by Category:
+          </Text>
+          <Select
+            size="sm"
+            w="150px"
+            bg={"white"}
+            value={selectedCategory}
+            onChange={handleCategoryFilter}
+          >
+            <option value="">All Categories</option>
+            <option value="1">Bisnis</option>
+            <option value="2">Ekonomi</option>
+            <option value="3">Teknologi</option>
+            <option value="4">Olahraga</option>
+            <option value="5">Kuliner</option>
+            <option value="6">Internasional</option>
+            <option value="7">Fiksi</option>
+          </Select>
+        </Flex>
+
         <Flex wrap={"wrap"} gap={"20px"}>
           {articles.map((item) => {
             return (
               <Card
                 maxW={"340px"}
                 minW={"340px"}
-                maxH={"500px"}
-                minH={"400px"}
+                maxH={"360px"}
+                minH={"360px"}
                 borderRadius={"20px"}
               >
                 <CardBody justify="center">
@@ -129,21 +157,26 @@ export const ArticleList = () => {
                     <Image
                       src={`https://minpro-blog.purwadhikabootcamp.com/${item.imageURL}`}
                       borderRadius={"20px"}
-                      w={"300px"}
-                      h={"200px"}
+                      w={"320px"}
+                      h={"150px"}
                       alignItems={"center"}
                     />
                   </Center>
-                  <Stack maxW="350px" maxH={"auto"}>
-                    <Text fontWeight={"bold"}>{item.title}</Text>
-                    <Text noOfLines={3}>{item.content}</Text>
+                  <Stack maxW="340px" maxH={"auto"}>
+                    <Text noOfLines={1} fontWeight={"bold"} fontSize={"15px"}>
+                      {item.title}
+                    </Text>
+                    <Text noOfLines={2} fontSize={"14px"}>
+                      {item.content}
+                    </Text>
                   </Stack>
                 </CardBody>
                 <Divider />
                 <Text
                   align={"left"}
-                  mt={"7px"}
+                  mt={"2px"}
                   ml={"15px"}
+                  fontSize={"15px"}
                   color={"teal"}
                   fontWeight={"bold"}
                 >
@@ -151,40 +184,38 @@ export const ArticleList = () => {
                 </Text>
                 <Flex ml={"15px"} align={"left"}>
                   <Box mt={"3px"} mr={"3px"}>
-                    <WiTime4 size={"20px"} />
+                    <WiTime4 size={"15px"} />
                   </Box>
-                  <Text>
-                    {item.updatedAt.slice(0, 10)},{" "}
-                    {item.updatedAt.slice(11, 16)}
+                  <Text fontSize={"13px"}>
+                    {item.updatedAt.slice(0, 10)},{item.updatedAt.slice(11, 16)}{" "}
                     WIB
                   </Text>
                 </Flex>
-                <CardFooter>
-                  <ButtonGroup>
-                    <Button>Like</Button>
-                    {!login ? (
-                      <Button
-                        variant={"unstyled"}
-                        rightIcon={<BsBookmarksFill />}
-                        onClick={() => toastFailedBookmark()}
-                      ></Button>
-                    ) : (
-                      <Button
-                        variant={"unstyled"}
-                        rightIcon={<BsBookmarksFill />}
-                        onClick={() =>
-                          dispatch(addToBookmark(articles), toastAddBookmark())
-                        }
-                      ></Button>
-                    )}
-                  </ButtonGroup>
-                </CardFooter>
+
+                <ButtonGroup mt={"5px"} mb={"10px"} ml={"15px"}>
+                  <Button>Like</Button>
+                  {!login ? (
+                    <Button
+                      variant={"unstyled"}
+                      rightIcon={<BsBookmarksFill />}
+                      onClick={() => toastFailedBookmark()}
+                    ></Button>
+                  ) : (
+                    <Button
+                      variant={"unstyled"}
+                      rightIcon={<BsBookmarksFill />}
+                      onClick={() =>
+                        dispatch(addToBookmark(articles), toastAddBookmark())
+                      }
+                    ></Button>
+                  )}
+                </ButtonGroup>
               </Card>
             );
           })}
         </Flex>
         {/* --Pagination-- */}
-        <Flex justify="center" mt={4}>
+        <Flex justify="center" mt={"20px"}>
           <Button
             mr={"15px"}
             size="sm"

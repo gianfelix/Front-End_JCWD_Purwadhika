@@ -5,9 +5,7 @@ import {
   FormLabel,
   Input,
   InputGroup,
-
   Text,
-
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -32,6 +30,8 @@ export const ResetPassword = () => {
       .max(15, "Password must be less than 16 character")
       .matches(/[A-Z]/, "Password requires an uppercase letter")
       .matches(/[0-9]/, "Password requires a number")
+
+      .matches(/[A-Z]/, "Password requires an uppercase letter")
       .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Password not match")
@@ -86,7 +86,7 @@ export const ResetPassword = () => {
         <Text fontSize="2xl">Reset Password</Text>
         <form onSubmit={formik.handleSubmit}>
           <FormControl
-          mt={"30px"}
+            mt={"30px"}
             isRequired
             isInvalid={formik.touched.password && formik.errors.password}
           >
@@ -104,7 +104,7 @@ export const ResetPassword = () => {
             </InputGroup>
           </FormControl>
           <FormControl
-          mt={"20px"}
+            mt={"20px"}
             isRequired
             isInvalid={
               formik.touched.confirmPassword && formik.errors.confirmPassword
@@ -123,7 +123,12 @@ export const ResetPassword = () => {
               />
             </InputGroup>
           </FormControl>
-          <Button mt={"20px"} type="submit" colorScheme="teal" variant={"solid"}>
+          <Button
+            mt={"20px"}
+            type="submit"
+            colorScheme="teal"
+            variant={"solid"}
+          >
             Save
           </Button>
         </form>

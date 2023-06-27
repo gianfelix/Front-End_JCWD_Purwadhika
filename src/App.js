@@ -11,12 +11,16 @@ import { Footer } from "./components/footer/Footer";
 import { Verify } from "./pages/Verify";
 import { ResetPassword } from "./pages/ResetPassword";
 import { AuthKeepLogin } from "./components/AuthKeepLogin";
-import { CatBisnis } from "./pages/CatBisnis";
+import { Helmet } from "react-helmet";
+
 
 function App() {
   return (
     <div className="App">
       <AuthKeepLogin>
+        <Helmet>
+          <title>Earth Wall</title>
+        </Helmet>
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
@@ -30,7 +34,7 @@ function App() {
             path="/reset-password/:token"
             element={<ResetPassword />}
           ></Route>
-          <Route path="/bisnis" element={<CatBisnis />}></Route>
+        
         </Routes>
         <Footer />
       </AuthKeepLogin>

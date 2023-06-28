@@ -30,9 +30,11 @@ export default function SimpleAccordion() {
               </AccordionButton>
               <AccordionPanel pb={4}>
                 <Text align={"justify"}>
-                  First, you can create your account first by means of the
-                  "Register" menu that has been provided. Next, you can go to
-                  the "Write" menu to write the article you made.
+                  First, you can create an account by clicking on the "Register"
+                  option available. Once you have registered, you can access the
+                  "Write" menu located in the account icon section at the upper
+                  right corner. From there, you can start writing the article
+                  you want.
                 </Text>
               </AccordionPanel>
             </AccordionItem>

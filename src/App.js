@@ -13,13 +13,12 @@ import { ResetPassword } from "./pages/ResetPassword";
 import { AuthKeepLogin } from "./components/AuthKeepLogin";
 import { Helmet } from "react-helmet";
 
-
 function App() {
   return (
     <div className="App">
       <AuthKeepLogin>
         <Helmet>
-        <link rel="icon" type="image/svg+xml" href="/earth.svg" />
+          <link rel="icon" type="image/svg+xml" href="/earth.svg" />
           <title>Earth Wall</title>
         </Helmet>
         <Navbar />
@@ -35,7 +34,10 @@ function App() {
             path="/reset-password/:token"
             element={<ResetPassword />}
           ></Route>
-        
+          <Route
+            path="/verification-change-email/:token"
+            element={<Verify />}
+          />
         </Routes>
         <Footer />
       </AuthKeepLogin>

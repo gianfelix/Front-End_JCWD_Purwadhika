@@ -21,6 +21,9 @@ export const LoginButton = () => {
   const toLoginPage = () => {
     navigate("/login");
   };
+  const toHomePage = () => {
+    navigate("/");
+  }
   const toProfilePage = () => {
     navigate("/profile");
   };
@@ -56,10 +59,10 @@ export const LoginButton = () => {
               Write
             </MenuItem>
 
-            <MenuItem onClick={() => dispatch(logoutSuccess())}>
+            <MenuItem onClick={() => dispatch(logoutSuccess(), toHomePage())}>
               <Box mr={"7px"}>
                 <LuLogOut />
-              </Box>
+              </Box >
               Logout
             </MenuItem>
           </MenuList>

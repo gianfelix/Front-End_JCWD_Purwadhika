@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import { BookmarkItem } from "./BookmarkItem";
 
 export const BookmarkContent = () => {
-  const bookmarkArticles = useSelector(
-    (state) => state.ArticlesReducer.articles
-  );
+  const bookmarkArticles = useSelector((state) => state.ArticlesReducer.articles);
   return (
     <>
       <Box minH={'631px'}>

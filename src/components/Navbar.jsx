@@ -23,9 +23,9 @@ export const Navbar = () => {
             <Text
               color={"#2b6777"}
               textShadow={"0.5px 0.2px black"}
-              fontFamily={"Roboto"}
-              mt={"2px"}
-              fontSize={"25px"}
+              fontFamily={" monospace"}
+              mt={"-1px"}
+              fontSize={"30px"}
               ml={"10px"}
             >
               EARTH WALL

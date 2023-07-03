@@ -1,14 +1,18 @@
-import { Box, Flex, Text, Image, Button, Stack } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Button, Stack, Icon } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ChangeUsernameButton from "../username/ChangeUsernameButton";
 import { ChangeEmailButton } from "../email/ChangeEmailButton";
 import { ChangePhoneButton } from "../phone/ChangePhoneButton";
+import { FaCamera } from "react-icons/fa";
 import axios from "axios";
+import { setProfileImage } from "../../redux/reducer/AuthReducer";
+import { useDispatch } from "react-redux";
 
 export const ProfileUser = () => {
   const [userData, setUserData] = useState(null);
   const [profileImageURL, setProfileImageURL] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +31,8 @@ export const ProfileUser = () => {
 
         const data = await response.json();
         setUserData(data);
-        if (data.profileImageURL) {
-          setProfileImageURL(data.profileImageURL);
+        if (data.user.imgProfile) {
+          setProfileImageURL(data.user.imgProfile);
         }
       } catch (error) {
         console.error(error);
@@ -45,7 +49,7 @@ export const ProfileUser = () => {
   // change foto
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    setSelectedImage(file);
+    setSelectedImage(file); // Menampilkan gambar sebelum diunggah
   };
 
   const handleImageSubmit = async () => {
@@ -69,6 +73,7 @@ export const ProfileUser = () => {
 
       const imageURL = response.data.result.url;
       setProfileImageURL(imageURL);
+      dispatch(setProfileImage(imageURL));
     } catch (error) {
       console.error(error);
     }
@@ -106,14 +111,27 @@ export const ProfileUser = () => {
           </Box>
         </Flex>
         <Stack>
-          <Box align="center">
-            <Image
-              src={profileImageURL}
-              borderRadius={"20px"}
-              w={"180px"}
-              h={"150px"}
-              alignItems={"center"}
-            />
+        <Box align="center">
+            {selectedImage ? (
+              <Image
+                src={URL.createObjectURL(selectedImage)}
+                borderRadius={"20px"}
+                w={"180px"}
+                h={"150px"}
+                alignItems={"center"}
+              />
+            ) : (
+              <Flex
+                alignItems="center"
+                justifyContent="center"
+                borderRadius={"20px"}
+                w={"180px"}
+                h={"150px"}
+                bg="gray.200"
+              >
+                <Icon as={FaCamera} boxSize={6} color="gray.400" />
+              </Flex>
+            )}
           </Box>
           <Box ml={4}>
             <input type="file" onChange={handleImageUpload} />

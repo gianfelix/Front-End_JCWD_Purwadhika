@@ -48,12 +48,12 @@ export const ArticleList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sort, setSort] = useState("ASC");
-
+  const [searchValue, setSearchValue] = useState("");
 
   async function getArticles() {
     try {
       const responArticles = await axios.get(
-        `https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=${selectedCategory}&sort=${sort}&page=${currentPage}`
+        `https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=${selectedCategory}&sort=${sort}&page=${currentPage}&search=${searchValue}`
       );
       setArticles(responArticles.data.result);
       setTotalPages(responArticles.data.totalPages);
@@ -64,7 +64,7 @@ export const ArticleList = () => {
 
   useEffect(() => {
     getArticles();
-  }, [currentPage, selectedCategory, sort]);
+  }, [currentPage, selectedCategory, sort, searchValue]);
 
   const handleSort = (event) => {
     setSort(event.target.value);
@@ -74,7 +74,6 @@ export const ArticleList = () => {
       sortArticlesByTitleReverse();
     }
   };
-
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -134,7 +133,9 @@ export const ArticleList = () => {
     setArticles(sortedArticles);
   };
 
-
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   return (
     <>
@@ -169,20 +170,32 @@ export const ArticleList = () => {
             <option value="6">Internasional</option>
             <option value="7">Fiksi</option>
           </Select>
+          <Text ml={"30px"} fontSize="20px" color={"#FFFFFF"} mr="2">
+            Sortir:
+          </Text>
           <Select
             size="sm"
-            ml={"10px"}
             w="150px"
             bg={"white"}
             value={sort}
             onChange={handleSort}
           >
-            <option value="">Sortir by:</option>
             <option value="ASC">Oldest - Newest</option>
             <option value="DESC">Newest - Oldest</option>
             <option value="titleASC">A-Z</option>
             <option value="titleDESC">Z-A</option>
           </Select>
+
+          <Text ml={"30px"} fontSize="20px" color={"#FFFFFF"} mr="2">
+            Search:
+          </Text>
+          <input
+            style={{ width: "300px", height: "30px", paddingLeft: "10px" }}
+            type="text"
+            placeholder="Search by title..."
+            value={searchValue}
+            onChange={handleSearchChange}
+          />
         </Flex>
 
         <Flex wrap={"wrap"} gap={"20px"}>

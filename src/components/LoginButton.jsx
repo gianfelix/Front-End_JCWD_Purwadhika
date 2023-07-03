@@ -8,7 +8,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/reducer/AuthReducer";
 import { Avatar } from "@chakra-ui/react";
@@ -32,7 +32,14 @@ export const LoginButton = () => {
     navigate("/write");
   };
   const login = useSelector((state) => state.AuthReducer.login);
+  // const profileImageURL = useSelector((state) => state.AuthReducer.profileImageURL);
+  const profileImageURL = useSelector((state) => state.AuthReducer.user.imgProfile);
   const dispatch = useDispatch();
+
+useEffect(() => {
+  // changeNavbarAvatar(profileImageURL);
+}, [profileImageURL]);
+
   return (
     <>
       {!login ? (
@@ -41,7 +48,7 @@ export const LoginButton = () => {
         </Button>
       ) : (
         <Menu>
-          <MenuButton as={Avatar}></MenuButton>
+          <MenuButton as={Avatar} src="{profileImageURL}"></MenuButton>
           <Text >
             <NameNavbar />
           </Text>

@@ -57,6 +57,10 @@ export const AuthReducer = createSlice({
     keepLoginSuccess: (state) => {
       state.login = true;
     },
+
+    setProfileImage: (state, action) => {
+      state.user.imgProfile = action.payload;
+    },
   },
 });
 
@@ -101,6 +105,12 @@ export const keepLogin = () => {
   };
 };
 
+export const setProfileImage = (imageURL) => {
+  return {
+    type: "auth/setProfileImage",
+    payload: imageURL,
+  };
+};
 
 
 export const { loginSuccess, logoutSuccess, userName, userEmail, userPhone, keepLoginSuccess, setUser  } =

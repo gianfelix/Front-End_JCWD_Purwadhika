@@ -1,11 +1,14 @@
-import { Box, Flex,  Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Button, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ChangeUsernameButton from "../username/ChangeUsernameButton";
 import { ChangeEmailButton } from "../email/ChangeEmailButton";
 import { ChangePhoneButton } from "../phone/ChangePhoneButton";
+import axios from "axios";
 
 export const ProfileUser = () => {
   const [userData, setUserData] = useState(null);
+  const [profileImageURL, setProfileImageURL] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +27,9 @@ export const ProfileUser = () => {
 
         const data = await response.json();
         setUserData(data);
+        if (data.profileImageURL) {
+          setProfileImageURL(data.profileImageURL);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -35,6 +41,38 @@ export const ProfileUser = () => {
   if (!userData) {
     return <p>Loading...</p>;
   }
+
+  // change foto
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
+
+  const handleImageSubmit = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      };
+
+      const formData = new FormData();
+      formData.append("profileImage", selectedImage);
+
+      const response = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded",
+        formData,
+        {
+          headers,
+        }
+      );
+
+      const imageURL = response.data.result.url;
+      setProfileImageURL(imageURL);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -63,10 +101,32 @@ export const ProfileUser = () => {
               <ChangeEmailButton />
             </Box>
             <Box>
-              <ChangePhoneButton/>
+              <ChangePhoneButton />
             </Box>
           </Box>
         </Flex>
+        <Stack>
+          <Box align="center">
+            <Image
+              src={profileImageURL}
+              borderRadius={"20px"}
+              w={"180px"}
+              h={"150px"}
+              alignItems={"center"}
+            />
+          </Box>
+          <Box ml={4}>
+            <input type="file" onChange={handleImageUpload} />
+            <Button
+              mt={2}
+              colorScheme="teal"
+              onClick={handleImageSubmit}
+              isDisabled={!selectedImage}
+            >
+              Upload Photo
+            </Button>
+          </Box>
+        </Stack>
       </Box>
     </>
   );

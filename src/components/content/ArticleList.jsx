@@ -47,14 +47,13 @@ export const ArticleList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [sort, setSort] = useState("ASC");
 
-  useEffect(() => {
-    getArticles();
-  }, [currentPage, selectedCategory]);
+
   async function getArticles() {
     try {
       const responArticles = await axios.get(
-        `https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=${selectedCategory}&sort=ASC&page=${currentPage}`
+        `https://minpro-blog.purwadhikabootcamp.com/api/blog?id_cat=${selectedCategory}&sort=${sort}&page=${currentPage}`
       );
       setArticles(responArticles.data.result);
       setTotalPages(responArticles.data.totalPages);
@@ -62,6 +61,20 @@ export const ArticleList = () => {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    getArticles();
+  }, [currentPage, selectedCategory, sort]);
+
+  const handleSort = (event) => {
+    setSort(event.target.value);
+    if (event.target.value === "titleASC") {
+      sortArticlesByTitle();
+    } else if (event.target.value === "titleDESC") {
+      sortArticlesByTitleReverse();
+    }
+  };
+
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -106,7 +119,23 @@ export const ArticleList = () => {
     setSelectedCategory(event.target.value);
   };
 
- 
+  /// sort title
+  const sortArticlesByTitle = () => {
+    const sortedArticles = [...articles].sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+    setArticles(sortedArticles);
+  };
+
+  const sortArticlesByTitleReverse = () => {
+    const sortedArticles = [...articles].sort((a, b) => {
+      return b.title.localeCompare(a.title);
+    });
+    setArticles(sortedArticles);
+  };
+
+
+
   return (
     <>
       <Box ml={"35px"} mb={"50px"}>
@@ -139,6 +168,20 @@ export const ArticleList = () => {
             <option value="5">Kuliner</option>
             <option value="6">Internasional</option>
             <option value="7">Fiksi</option>
+          </Select>
+          <Select
+            size="sm"
+            ml={"10px"}
+            w="150px"
+            bg={"white"}
+            value={sort}
+            onChange={handleSort}
+          >
+            <option value="">Sortir by:</option>
+            <option value="ASC">Oldest - Newest</option>
+            <option value="DESC">Newest - Oldest</option>
+            <option value="titleASC">A-Z</option>
+            <option value="titleDESC">Z-A</option>
           </Select>
         </Flex>
 
